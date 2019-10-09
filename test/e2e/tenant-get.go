@@ -21,12 +21,11 @@ const (
 	tenantkubeconfig = "manifest/tenant-kubeconfig"
 )
 
-var _ = framework.KubeDescribe("none-namespaced", func() {
-	// f := framework.NewDefaultFramework("get")
-
+var _ = framework.KubeDescribe("test tenant permission", func() {
 	var resourceList string
 	var err error
-	framework.KubeDescribe("test tenant permission", func() {
+
+	framework.KubeDescribe("test tenant get none namespaced resource", func() {
 		ginkgo.BeforeEach(func() {
 			ginkgo.By("get none namespaced api-resources")
 			os.Setenv("KUBECONFIG", adminkubeconfig)
