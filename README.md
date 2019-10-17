@@ -1,4 +1,4 @@
-# multi-tenancy-benchmarks
+# Multi-tenancy-benchmarks
 
 ## Write configurations
 
