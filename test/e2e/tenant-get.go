@@ -16,19 +16,23 @@ import (
 )
 
 const (
-	expectedVal      = "Error from server (Forbidden)"
-	adminkubeconfig  = "manifest/admin-kubeconfig"
-	tenantkubeconfig = "manifest/tenant-kubeconfig"
+	expectedVal = "Error from server (Forbidden)"
+	configPath  = "manifest/config.yaml"
 )
 
 var _ = framework.KubeDescribe("test tenant permission", func() {
+	var config *benchmarkConfig
 	var resourceList string
 	var err error
 
 	framework.KubeDescribe("test tenant get none namespaced resource", func() {
 		ginkgo.BeforeEach(func() {
 			ginkgo.By("get none namespaced api-resources")
-			os.Setenv("KUBECONFIG", adminkubeconfig)
+
+			config, err = readConfig(configPath)
+			framework.ExpectNoError(err)
+
+			os.Setenv("KUBECONFIG", config.Adminkubeconfig)
 			nsdFlag := fmt.Sprintf("--namespaced=false")
 			outputFlag := fmt.Sprintf("-o=name")
 
@@ -36,17 +40,14 @@ var _ = framework.KubeDescribe("test tenant permission", func() {
 			framework.ExpectNoError(err)
 		})
 
-		// ginkgo.JustBeforeEach(func() {
-		// 	os.Setenv("KUBECONFIG", tenantkubeconfig)
-		// })
-
 		framework.KubeDescribe("tenant admin", func() {
 			// mkpath := func(file string) string {
 			// 	return filepath.Join(manifestPath, file)
 			// }
 
 			ginkgo.BeforeEach(func() {
-				os.Setenv("KUBECONFIG", tenantkubeconfig)
+				tenantkubeconfig := config.getValidTenant()
+				os.Setenv("KUBECONFIG", tenantkubeconfig.Kubeconfig)
 			})
 
 			ginkgo.It("tenant admin cannot get none namespaced resources ", func() {

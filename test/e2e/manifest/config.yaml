@@ -1,0 +1,4 @@
+adminKubeconfig: manifest/admin-kubeconfig.yaml
+tenantA:
+  kubeconfig: manifest/tenant-kubeconfig.yaml
+
