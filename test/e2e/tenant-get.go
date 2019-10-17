@@ -24,8 +24,10 @@ var _ = framework.KubeDescribe("test tenant permission", func() {
 	var config *benchmarkConfig
 	var resourceList string
 	var err error
+	var dryrun = "--dry-run=true"
+	var all = "--all=true"
 
-	framework.KubeDescribe("test tenant get none namespaced resource", func() {
+	framework.KubeDescribe("test tenant operation on none namespaced resource", func() {
 		ginkgo.BeforeEach(func() {
 			ginkgo.By("get none namespaced api-resources")
 
@@ -50,16 +52,29 @@ var _ = framework.KubeDescribe("test tenant permission", func() {
 				os.Setenv("KUBECONFIG", tenantkubeconfig.Kubeconfig)
 			})
 
-			ginkgo.It("tenant admin cannot get none namespaced resources ", func() {
-
+			ginkgo.It("cannot get none namespaced resources", func() {
 				resources := strings.Fields(resourceList)
 				for _, resource := range resources {
-					_, err1 := framework.LookForString(expectedVal, time.Minute, func() string {
+					_, errNew := framework.LookForString(expectedVal, time.Minute, func() string {
 						_, err := framework.RunKubectl("get", resource)
 						return err.Error()
 					})
 
-					framework.ExpectNoError(err1)
+					framework.ExpectNoError(errNew)
+				}
+			})
+
+			ginkgo.It("cannot edit none namespaced resources", func() {
+				resources := strings.Fields(resourceList)
+				annotation := "test=multi-tenancy"
+				for _, resource := range resources {
+					_, errNew := framework.LookForString(expectedVal, time.Minute, func() string {
+
+						_, err := framework.RunKubectl("annotate", resource, annotation, dryrun, all)
+						return err.Error()
+					})
+
+					framework.ExpectNoError(errNew)
 				}
 			})
 		})
