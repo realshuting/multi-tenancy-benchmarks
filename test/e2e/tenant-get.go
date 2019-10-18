@@ -69,7 +69,6 @@ var _ = framework.KubeDescribe("test tenant permission", func() {
 				annotation := "test=multi-tenancy"
 				for _, resource := range resources {
 					_, errNew := framework.LookForString(expectedVal, time.Minute, func() string {
-
 						_, err := framework.RunKubectl("annotate", resource, annotation, dryrun, all)
 						return err.Error()
 					})
