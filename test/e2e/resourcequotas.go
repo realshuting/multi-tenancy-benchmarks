@@ -1,33 +1,37 @@
 package test
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/onsi/ginkgo"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	kubernetes "k8s.io/client-go/kubernetes"
-	clientcmd "k8s.io/client-go/tools/clientcmd"
 	"k8s.io/kubernetes/test/e2e/framework"
 )
 
-var _ = framework.KubeDescribe("A tenant setup must comply with cluster wide resource configurations", func() {
+var _ = framework.KubeDescribe("A tenant cannot starve other tenants from cluster wide resources", func() {
 	var config *benchmarkConfig
+	var tenantA tenant
+	var user string
 	var err error
 
 	ginkgo.BeforeEach(func() {
 		config, err = readConfig(configPath)
 		framework.ExpectNoError(err)
+
+		tenantA = config.getValidTenant()
+		user = getContextFromKubeconfig(tenantA.Kubeconfig)
 	})
 
-	ginkgo.It("tenant must have resourcequotas configured same with cluster wide resource", func() {
+	ginkgo.It("valiate resourcequotas configuration", func() {
+		ginkgo.By(fmt.Sprintf("tenant %s must have resourcequotas configured same with the cluster administrator", user))
 		resourceNameList := getResourceNameList(config.Adminkubeconfig)
-		tenanta := config.getValidTenant()
-		tenantResourcequotas := getTenantResoureQuotas(tenanta)
+		tenantResourcequotas := getTenantResoureQuotas(tenantA)
 		expectedVal := strings.Join(tenantResourcequotas, " ")
 		for _, r := range resourceNameList {
 			if !strings.Contains(expectedVal, r) {
-				framework.Failf("%s must be configured in tenant resourcequotas", r)
+				framework.Failf("%s must be configured in tenant %s resourcequotas", r, user)
 			}
 		}
 	})
@@ -77,14 +81,4 @@ func getResourcequotaFromNodes(nodeList corev1.NodeList) []string {
 		}
 	}
 	return resourceNameList
-}
-
-func newKubeClientWithKubeconfig(kubeconfigpath string) *kubernetes.Clientset {
-	clientConfig, err := clientcmd.BuildConfigFromFlags("", kubeconfigpath)
-	framework.ExpectNoError(err)
-
-	kclient, err := kubernetes.NewForConfig(clientConfig)
-	framework.ExpectNoError(err)
-
-	return kclient
 }
