@@ -2,6 +2,12 @@
 
 Proposal doc: https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTRNmgBC5gJv0krE/edit?usp=sharing
 
+## Benchmarks
+|              Level              |              Type              |        Category     |             Test              |
+|---------------------------------|--------------------------------|-------------------------|---------------------------|
+|   Level 1     |     Behavioral    |  Control Plane Protection  |    [Ensure that Tenant A cannot list non namespaced resources](test/e2e/tenantaccess/README.md)|
+
+
 ## Multi-Tenancy Profile Definitions
 
 **Level 1**
@@ -19,12 +25,28 @@ Proposal doc: https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTR
 - allows of all Kubernetes features. For example, a tenant can install their own CRD and different tenants may have different versions
 
 
-## Benchmarks
-|              Level              |              Type              |        Category     |             Test              |
-|---------------------------------|--------------------------------|-------------------------|---------------------------|
-|   Level 1     |     Behavioral    |  Control Plane Protection  |    [Ensure that Tenant A cannot list non namespaced resources](test/e2e/tenantaccess/README.md)|
+## Benchmark Types 
+
+**Configuration Checks**
+
+**Behavioral Checks**
 
 
+## Benchmark Categories
+
+**Control Plane Protection**
+
+**Tenant Protection**
+
+**Network Segmentation and Isolation**
+
+**Host Protection**
+
+**Data Protection**
+
+**Fairness**
+
+**Self-Service Operations**
 
 ## Write configurations
 
