@@ -1,6 +1,6 @@
 # Multi-tenancy-benchmarks
 
-Proposal doc: https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTRNmgBC5gJv0krE/edit?usp=sharing
+<small>Proposal doc: https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTRNmgBC5gJv0krE/edit?usp=sharing<small>
 
 ## Benchmarks
 |              Level              |              Type              |        Category     |             Test              |
