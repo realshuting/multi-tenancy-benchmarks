@@ -2,19 +2,22 @@
 name: New benchmark test
 about: Template used to propose a new test.
 title: ''
-labels: ''
+labels: new test
 assignees: ''
 
 ---
 
-##Profile Applicability##
+### Profile Applicability
+e.g. Level 1
 
-##Type##
+### Type
+e.g. Behavioral
 
-##Category##
+### Category
+e.g. Control Plane Protection
 
-##Description##
+### Description
 
-##Rationale##
+### Rationale
 
-##Audit##
+### Audit
