@@ -22,7 +22,7 @@ Proposal doc: https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTR
 ## Benchmarks
 |              Level              |              Type              |        Category     |             Test              |
 |---------------------------------|--------------------------------|-------------------------|---------------------------|
-|   Level 1     |     Behavioral    |  Control Plane Protection  |    [Ensure that Tenant A cannot list non namespaced resources](test/e2e/tenantaccess.go)|
+|   Level 1     |     Behavioral    |  Control Plane Protection  |    [Ensure that Tenant A cannot list non namespaced resources](test/e2e/tenantaccess/README.md)|
 
 
 
