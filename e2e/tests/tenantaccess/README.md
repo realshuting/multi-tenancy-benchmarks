@@ -1,7 +1,5 @@
 # Ensure that Tenant A cannot list non namespaced resources
 
-[Implementation](tenantaccess.go)
-
 **Profile Applicability:**
 
 Level 1
@@ -33,9 +31,3 @@ For all non namespaced resources,  issue the following command
 	kubectl --kubeconfig tenant-a get <resource>
 
 Each command must return 403 FORBIDDEN
-
-**Remediation:**
-
-**Impact:**
-
-**References:**

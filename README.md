@@ -7,7 +7,7 @@ Add description of this repo.
 ## Benchmarks
 |    Level <img width=30/>    |       Type              |        Category     |             Test              |
 |---------------------------------|--------------------------------|-------------------------|---------------------------|
-|   Level 1     |     Behavioral    |  Control Plane Protection  |  [Ensure that Tenant A cannot list non namespaced resources](e2e/tests/tenantaccess/README.md)|
+|   Level 1     |     Behavioral    |  Control Plane Protection  |  [Ensure that Tenant A cannot list non namespaced resources](e2e/tests/tenantaccess)|
 |   Level 1     |     Behavioral    |  Tenant Protection  |  Ensure that Tenant A cannot list namespaced resources from Tenant B|
 |   Level 1     |     Configuration    |  Fairness  |  Ensure that Tenant A cannot starve other tenants from cluster wide resources|
 |   Level 1     |     Behavioral    |  Tenant Isolation  |  [Ensure that users of Tenant A cannot modify Resource Quotas](e2e/tests/resourcequotas)|
