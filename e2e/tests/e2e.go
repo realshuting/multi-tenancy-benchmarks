@@ -10,8 +10,8 @@ import (
 	ginkgowrapper "k8s.io/kubernetes/test/e2e/framework/ginkgowrapper"
 
 	// test sources
-	_ "github.com/realshuting/multi-tenancy-benchmarks/test/e2e/resourcequotas"
-	_ "github.com/realshuting/multi-tenancy-benchmarks/test/e2e/tenantaccess"
+	_ "github.com/realshuting/multi-tenancy-benchmarks/e2e/tests/resourcequotas"
+	_ "github.com/realshuting/multi-tenancy-benchmarks/e2e/tests/tenantaccess"
 )
 
 func RunE2ETests(t *testing.T) {
