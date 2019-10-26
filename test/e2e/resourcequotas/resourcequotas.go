@@ -5,23 +5,28 @@ import (
 	"strings"
 
 	"github.com/onsi/ginkgo"
+	configutil "github.com/realshuting/multi-tenancy-benchmarks/test/e2e/config"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/kubernetes/test/e2e/framework"
 )
 
+const (
+	expectedVal = "Error from server (Forbidden)"
+)
+
 var _ = framework.KubeDescribe("A tenant cannot starve other tenants from cluster wide resources", func() {
-	var config *benchmarkConfig
-	var tenantA tenant
+	var config *configutil.BenchmarkConfig
+	var tenantA configutil.TenantSpec
 	var user string
 	var err error
 
 	ginkgo.BeforeEach(func() {
-		config, err = readConfig(configPath)
+		config, err = configutil.ReadConfig(configutil.ConfigPath)
 		framework.ExpectNoError(err)
 
-		tenantA = config.getValidTenant()
-		user = getContextFromKubeconfig(tenantA.Kubeconfig)
+		tenantA = config.GetValidTenant()
+		user = configutil.GetContextFromKubeconfig(tenantA.Kubeconfig)
 	})
 
 	ginkgo.It("valiate resourcequotas configuration", func() {
@@ -37,11 +42,11 @@ var _ = framework.KubeDescribe("A tenant cannot starve other tenants from cluste
 	})
 })
 
-func getTenantResoureQuotas(t tenant) []string {
+func getTenantResoureQuotas(t configutil.TenantSpec) []string {
 	var tmpList string
 	var tenantResourceQuotas []string
 
-	kclient := newKubeClientWithKubeconfig(t.Kubeconfig)
+	kclient := configutil.NewKubeClientWithKubeconfig(t.Kubeconfig)
 	resourcequotaList, err := kclient.CoreV1().ResourceQuotas(t.Namespace).List(metav1.ListOptions{})
 	framework.ExpectNoError(err)
 
@@ -60,7 +65,7 @@ func getTenantResoureQuotas(t tenant) []string {
 }
 
 func getResourceNameList(kubeconfigpath string) []string {
-	kclient := newKubeClientWithKubeconfig(kubeconfigpath)
+	kclient := configutil.NewKubeClientWithKubeconfig(kubeconfigpath)
 	nodes, err := kclient.CoreV1().Nodes().List(metav1.ListOptions{})
 	framework.ExpectNoError(err)
 
