@@ -13,17 +13,45 @@ For background, see: [Multi-Tenancy Benchmarks Proposal](https://docs.google.com
 - [Running the Multi-Tenancy Validation](documentation/run.md)
 
 ## Benchmarks
-|    Level <img width=30/>    |       Type              |        Category     |             Test              |
-|---------------------------------|--------------------------------|-------------------------|---------------------------|
-|   Level 1     |     Behavioral    |  Control Plane Protection  |  [Ensure that Tenant A cannot list non namespaced resources](e2e/tests/tenantaccess)|
-|   Level 1     |     Behavioral    |  Tenant Protection  |  [Ensure that Tenant A cannot list namespaced resources from Tenant B](e2e/tests/tenantprotection)|
-|   Level 1     |     Configuration    |  Fairness  |  [Ensure that Tenant A cannot starve other tenants from cluster wide resources](e2e/tests/resourcequotas)|
-|   Level 1     |     Behavioral    |  Tenant Isolation  |  [Ensure that users of Tenant A cannot modify Resource Quotas](e2e/tests/modify_resourcequotas)|
-|   Level 1     |     Behavioral    |  Tenant Isolation  |  [Ensure that users of Tenant A cannot modify resources managed by the cluster administrator](e2e/tests/modify_admin_resource/README.md)|
-|   Level 1     |     Behavioral    |  Network Protection & Isolation  |  [Ensure that users of Tenant A cannot connect to pods running in Tenant B](e2e/tests/network_isolation)|
-|   Level 1     |     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use hostpaths](e2e/tests/deny_hostpaths)|
-|   Level 1     |     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use NodePort](e2e/tests/deny_nodeports)|
-|   Level 1     |     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use HostPort](e2e/tests/deny_hostports/README.md)|
+
+### Multi-Tenancy Profile Level 1
+Items in this profile intend to:
+* isolate and protect the kubernetes control plane from tenants
+* use standard Kubernetes resources
+* may inhibit select Kubernetes features. For example, a tenant may not be allowed to install a CRD
+
+
+| Type              | Category                       | Benchmark                                          |
+|-------------------|--------------------------------|----------------------------------------------------|
+|     Behavioral    |  Control Plane Protection  |  [Ensure that Tenant A cannot list non namespaced resources](e2e/tests/tenantaccess)|
+|     Behavioral    |  Tenant Protection  |  [Ensure that Tenant A cannot list namespaced resources from Tenant B](e2e/tests/tenantprotection)|
+|     Configuration |  Fairness  |  [Ensure that Tenant A cannot starve other tenants from cluster wide resources](e2e/tests/resourcequotas)|
+|     Behavioral    |  Tenant Isolation  |  [Ensure that users of Tenant A cannot modify Resource Quotas](e2e/tests/modify_resourcequotas)|
+|     Behavioral    |  Tenant Isolation  |  [Ensure that users of Tenant A cannot modify resources managed by the cluster administrator](e2e/tests/modify_admin_resource/README.md)|
+|     Behavioral    |  Network Protection & Isolation  |  [Ensure that users of Tenant A cannot connect to pods running in Tenant B](e2e/tests/network_isolation)|
+|     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use hostpaths](e2e/tests/deny_hostpaths)|
+|     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use NodePort](e2e/tests/deny_nodeports)|
+|     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use HostPort](e2e/tests/deny_hostports/README.md)|
+
+### Multi-Tenancy Profile Level 2
+This profile extends the "Level 1" profile. Items in this profile exhibit one or more of the following characteristics:
+* may require multi-tenancy related CRDs or other Kubernetes extensions
+* provides self-service creation of tenant namespaces
+* provides self-service management of other namespace resources like network policies, roles, and role bindings
+
+|  Type             |  Category                      | Check                                              |
+|-------------------|--------------------------------|----------------------------------------------------|
+
+
+
+### Multi-Tenancy Profile Level 3
+This profile extends the "Level 2" profile. Items in this profile exhibit one or more of the following characteristics:
+* are intended for environments or use cases where a stronger-level of multi-tenancy is paramount
+* allows of all Kubernetes features. For example, a tenant can install their own CRD and different tenants may have different versions
+
+
+|  Type             |  Category                      | Check                                              |
+|-------------------|--------------------------------|----------------------------------------------------|
 
 
 ## License
