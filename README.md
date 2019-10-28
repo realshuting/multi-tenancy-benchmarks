@@ -1,8 +1,16 @@
 # Multi-tenancy-benchmarks
 
-Add description of this repo. 
+This repository contains a set of Multi-Tenancy Benchmarks mantained by the 
+[Multi-Tenancy Working Group](https://github.com/kubernetes-sigs/multi-tenancy) that can be used to validate if a Kubernetes cluster 
+is properly configured for multi-tenancy. A validation tool is also provided.
 
-[Proposal doc](https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTRNmgBC5gJv0krE/edit?usp=sharing).
+For background, see: [Multi-Tenancy Benchmarks Proposal](https://docs.google.com/document/d/1O-G8jEpiJxOeYx9Pd2OuOSb8859dTRNmgBC5gJv0krE/edit?usp=sharing).
+
+## Documentation
+- [Multi-Tenancy Profiles](documentation/definitions.md)
+- [Benchmark Types](documentation/types.md)
+- [Benchmark Categories](documentation/catagories.md)
+- [Running the Multi-Tenancy Validation](documentation/run.md)
 
 ## Benchmarks
 |    Level <img width=30/>    |       Type              |        Category     |             Test              |
@@ -17,15 +25,6 @@ Add description of this repo.
 |   Level 1     |     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use NodePort](e2e/tests/deny_nodeports)|
 |   Level 1     |     Behavioral    |  Host Protection  |  [Ensure that users of Tenant A cannot use HostPort](e2e/tests/deny_hostports/README.md)|
 
-
-## Documentation
-- [Multi-Tenancy Profile Definitions](documentation/definitions.md)
-
-- [Benchmark Types](documentation/types.md)
-
-- [Benchmark Categories](documentation/catagories.md)
-
-- [Getting Started](documentation/run.md)
 
 ## License
 
